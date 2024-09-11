@@ -1,63 +1,44 @@
-E Mail Regex Tutorial
+Understanding Email Validation Using Regex
 
-To validate email addresses, we use a regex pattern that checks for a proper structure. Here’s a pattern: ^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+)\.([a-zA-Z]{2,})(?:\.([a-zA-Z]{2}))?$. Let’s break down how this pattern works using key features.
+Validating email addresses is crucial for ensuring that user input is in the correct format. In this tutorial, we will break down a common regex pattern used to validate email addresses, explaining each component so you can understand how it works and why it is effective.
 
 Summary
 
-The regex pattern ^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+)\.([a-zA-Z]{2,})(?:\.([a-zA-Z]{2}))?$ validates email addresses by splitting them into parts and checking each part with different rules.
+This tutorial covers the email validation regex pattern ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$. We will dissect the pattern to see how it checks for the proper structure of an email address, including a valid username, an @ symbol, a domain name, and a top-level domain.
 
-Regex Breakdown
+^[a-zA-Z0-9._%+-]+: Matches the email's local part (before the @ symbol).
+@[a-zA-Z0-9.-]+: Ensures there is an @ symbol followed by the domain name.
+\.[a-zA-Z]{2,}$: Ensures the domain has a valid top-level domain (TLD) of at least two characters.
+
+
+Table of Contents
+
 Anchors
-
-^ and $: These anchors ensure that we check the entire email address from start (^) to end ($).
 Quantifiers
-
-+: In ([a-zA-Z0-9._%+-]+), the + means "one or more" of the characters in the brackets. This ensures the local part has at least one character.
-{2,}: In ([a-zA-Z]{2,}), {2,} means "two or more" letters, making sure the top-level domain has at least two letters.
-?: In (?:\.([a-zA-Z]{2}))?, the ? makes the extra domain part optional (like .uk in .co.uk). It’s lazy, meaning it will only match if it’s there.
-
-Grouping
-
-([a-zA-Z0-9._%+-]+): This captures the local part of the email. It allows letters, numbers, dots, underscores, percent signs, plus signs, and hyphens.
-@: Separates the local part from the domain part.
-([a-zA-Z0-9.-]+): This captures the domain part. It includes letters, numbers, dots, and hyphens.
-.([a-zA-Z]{2,}): Captures the top-level domain (TLD) after a dot, with at least two letters.
-(?:.([a-zA-Z]{2}))?: Optionally captures a second-level domain (like .uk in .co.uk) after another dot.
-
-Bracket Expressions
-
-[a-zA-Z0-9._%+-]: Matches any letter (uppercase or lowercase), digit, dot (.), underscore (_), percent sign (%), plus sign (+), or hyphen (-) in the local part.
-[a-zA-Z0-9.-]: Matches letters, digits, dots, and hyphens in the domain part.
 Character Classes
+Escaping Special Characters
+Grouping
+Flags
+Regex Components
 
-[a-zA-Z]: Matches any letter (uppercase or lowercase).
+Anchors
+The ^ and $ anchors ensure that the entire string is matched from the start to the end, validating the whole email format.
 
-Example
-Here’s how this pattern works with different email addresses:
+Quantifiers
++: Appears after [a-zA-Z0-9._%+-], ensuring that at least one or more characters are included in the local part of the email address.
+{2,}: Appears after the . in the TLD portion, requiring at least two characters for the top-level domain.
+Character Classes
+[a-zA-Z0-9._%+-]: Matches any alphanumeric character (upper or lowercase) and common special characters that are valid in email usernames.
+[a-zA-Z0-9.-]: Matches alphanumeric characters and the dot (.) and hyphen (-) in domain names.
+Escaping Special Characters
+@: The @ symbol is a special character in regex, so it is used as a literal to match the @ in email addresses.
+\.: The . (dot) is escaped with a backslash because it has a special meaning in regex, matching any character. Escaping it ensures it matches a literal dot in the domain.
+Grouping
+Grouping is implicit in this regex; the pattern matches the email structure in three main parts: the local part (before @), the domain name, and the TLD.
 
-Valid:
-user@example.com
-Local part: user
-Domain: example
-TLD: com
-user.name@sub-domain.co
-Local part: user.name
-Domain: sub-domain
-TLD: co
-user.name@domain.com.au
-Local part: user.name
-Domain: domain
-TLD: com
-Extra: au
-user123@domain.co.uk
-Local part: user123
-Domain: domain
-TLD: co
-Extra: uk
-Invalid:
-user@domain..com (invalid due to double dots in the domain)
-user@domain (missing TLD)
-user@-domain.com (invalid due to leading hyphen in the domain)
+Flags
+This regex does not use flags, but you could use i to make the validation case-insensitive. In most cases, emails are case-insensitive by default.
 
 Author
-Check out my projects on GitHub: https://github.com/ekookten?tab=repositories
+Full-stack development student at Columbia University’s Bootcamp, focusing on coding and secure web development practices.
+Check out my projects on GitHub: https://github.com/ekookten
